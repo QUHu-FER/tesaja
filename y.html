@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Location by IP</title>
+</head>
+<body>
+    <h1>Get User Location</h1>
+    <p id="location">Fetching your location...</p>
+
+    <script>
+        // API IP dan geolokasi berbasis IP
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                const { city, region, country_name, latitude, longitude } = data;
+                document.getElementById('location').innerHTML = `
+                    City: ${city}<br>
+                    Region: ${region}<br>
+                    Country: ${country_name}<br>
+                    Latitude: ${latitude}<br>
+                    Longitude: ${longitude}<br>
+                    <a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">
+                        View on Google Maps
+                    </a>
+                `;
+            })
+            .catch(error => {
+                document.getElementById('location').textContent = 
+                    'Unable to fetch location data. Please check your connection.';
+                console.error(error);
+            });
+    </script>
+</body>
+</html>
