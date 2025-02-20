@@ -1,0 +1,16 @@
+name: Free VPS
+
+on:
+  workflow_dispatch:  # Menjalankan VPS secara manual
+  schedule:
+    - cron: '0 */6 * * *'  # Menjalankan setiap 6 jam
+
+jobs:
+  run-vps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup VPS
+        run: |
+          echo "VPS Started"
+          sudo apt update && sudo apt install -y screen
+          screen -dmS vps bash -c "while true; do echo 'VPS Running'; sleep 3600; done"
